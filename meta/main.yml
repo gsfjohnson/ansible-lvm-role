@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: gsfjohnson
+  description: LVM ansible role
+  company: nil
+  license: Apache
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+  categories:
+  - system
+dependencies:

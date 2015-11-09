@@ -1,0 +1,44 @@
+---
+
+- name: create vg_security vg
+  lvg:
+    vg={{item.vg}}
+    pvs={{item.pvs}}
+  with_items: lvm_lvgs
+
+- name: create elasticsearch lv
+  lvol:
+    vg={{item.vg}}
+    lv={{item.lv}}
+    size={{item.size}}
+  with_items: lvm_lvols
+
+- name: make elasticsearch fs
+  filesystem:
+    fstype={{item.fstype}}
+    dev={{item.dev}}
+  with_items: lvm_fs
+
+- name: create mount point
+  file:
+    path={{item.path}}
+    state=directory
+    mode={{item.mode|default('0755')}}
+  with_items: lvm_mkdir_mountpoints
+
+- name: update fstab
+  mount:
+    name={{item.name}}
+    src={{item.src}}
+    fstype={{item.fstype}}
+    state=present
+  with_items: lvm_mounts
+
+- name: mount fs
+  mount:
+    name={{item.name}}
+    src={{item.src}}
+    fstype={{item.fstype}}
+    state=mounted
+  with_items: lvm_mounts
+
