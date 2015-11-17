@@ -1,0 +1,8 @@
+---
+
+lvm_lvgs: []
+lvm_lvols: []
+lvm_fs: []
+lvm_mkdir_mountpoints: []
+lvm_mounts: []
+lvm_mkdir: []
