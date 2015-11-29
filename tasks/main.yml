@@ -1,19 +1,19 @@
 ---
 
-- name: create vg_security vg
+- name: create volume groups 
   lvg:
     vg={{item.vg}}
     pvs={{item.pvs}}
   with_items: lvm_lvgs
 
-- name: create elasticsearch lv
+- name: create logical volumes
   lvol:
     vg={{item.vg}}
     lv={{item.lv}}
     size={{item.size}}
   with_items: lvm_lvols
 
-- name: make elasticsearch fs
+- name: mkfs
   filesystem:
     fstype={{item.fstype}}
     dev={{item.dev}}
