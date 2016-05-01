@@ -4,27 +4,27 @@
   lvg:
     vg={{item.vg}}
     pvs={{item.pvs}}
-  with_items: lvm_lvgs
+  with_items: "{{lvm_lvgs}}"
 
 - name: create logical volumes
   lvol:
     vg={{item.vg}}
     lv={{item.lv}}
     size={{item.size}}
-  with_items: lvm_lvols
+  with_items: "{{lvm_lvols}}"
 
 - name: mkfs
   filesystem:
     fstype={{item.fstype}}
     dev={{item.dev}}
-  with_items: lvm_fs
+  with_items: "{{lvm_fs}}"
 
 - name: create mount point
   file:
     path={{item.path}}
     state=directory
     mode={{item.mode|default('0755')}}
-  with_items: lvm_mkdir_mountpoints
+  with_items: "{{lvm_mkdir_mountpoints}}"
 
 - name: update fstab
   mount:
@@ -32,7 +32,7 @@
     src={{item.src}}
     fstype={{item.fstype}}
     state=present
-  with_items: lvm_mounts
+  with_items: "{{lvm_mounts}}"
 
 - name: mount fs
   mount:
@@ -40,7 +40,7 @@
     src={{item.src}}
     fstype={{item.fstype}}
     state=mounted
-  with_items: lvm_mounts
+  with_items: "{{lvm_mounts}}"
 
 - name: mkdir
   file:
@@ -49,5 +49,5 @@
     owner={{item.owner|default('root')}}
     group={{item.group|default('root')}}
     mode={{item.mode|default('0755')}}
-  with_items: lvm_mkdir
+  with_items: "{{lvm_mkdir}}"
 
